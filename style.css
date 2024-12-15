@@ -27,6 +27,11 @@ body {
     background: #bbada0;
     padding: 10px;
     border-radius: 8px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: none;
 }
 
 .tile {
@@ -128,4 +133,37 @@ button:hover {
 @keyframes appear {
     0% { opacity: 0; transform: scale(0); }
     100% { opacity: 1; transform: scale(1); }
+}
+
+/* Add mobile-specific styles */
+@media (max-width: 520px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 80px);
+        grid-gap: 8px;
+        padding: 8px;
+    }
+
+    .tile {
+        width: 80px;
+        height: 80px;
+        font-size: 1.8em;
+    }
+
+    .tile-128, .tile-256, .tile-512 {
+        font-size: 1.6em;
+    }
+
+    .tile-1024, .tile-2048 {
+        font-size: 1.3em;
+    }
+
+    .score {
+        font-size: 1.2em;
+        margin: 15px 0;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
 }

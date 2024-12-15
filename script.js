@@ -131,6 +131,57 @@ function handleKeyPress(event) {
     }
 }
 
+// Add touch handling variables and functions
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+    event.preventDefault(); // Prevent scrolling while swiping
+}
+
+function handleTouchEnd(event) {
+    touchEndX = event.changedTouches[0].clientX;
+    touchEndY = event.changedTouches[0].clientY;
+    
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    
+    // Minimum swipe distance to trigger movement
+    const minSwipeDistance = 50;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (Math.abs(deltaX) > minSwipeDistance) {
+            if (deltaX > 0) {
+                move('right');
+            } else {
+                move('left');
+            }
+        }
+    } else {
+        // Vertical swipe
+        if (Math.abs(deltaY) > minSwipeDistance) {
+            if (deltaY > 0) {
+                move('down');
+            } else {
+                move('up');
+            }
+        }
+    }
+}
+
+// Add touch event listeners
+gridContainer.addEventListener('touchstart', handleTouchStart, false);
+gridContainer.addEventListener('touchmove', handleTouchMove, false);
+gridContainer.addEventListener('touchend', handleTouchEnd, false);
+
 document.addEventListener('keydown', handleKeyPress);
 restartButton.addEventListener('click', init);
 init();
